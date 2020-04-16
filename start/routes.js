@@ -16,6 +16,8 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
 
+Route.resource('/screens', 'ScreenController').apiOnly()
+
 Route.get('/', () => {
   return { greeting: 'Hello world in JSON' }
 })
