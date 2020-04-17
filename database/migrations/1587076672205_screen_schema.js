@@ -5,7 +5,7 @@ const Schema = use('Schema')
 
 class ScreenSchema extends Schema {
   up () {
-    this.create('Screen', (table) => {
+    this.create('screens', (table) => {
       table.increments()
       table.string('Size').notNullable()
       table.boolean('IsActived').defaultTo(true)
@@ -14,7 +14,7 @@ class ScreenSchema extends Schema {
   }
 
   down () {
-    this.drop('Screen')
+    this.drop('screens')
   }
 }
 
