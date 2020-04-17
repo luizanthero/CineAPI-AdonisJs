@@ -20,7 +20,7 @@ class RoomTypeController {
    * @param {View} ctx.view
    */
   async index () {
-    const roomtypes = await RoomType.all()
+    const roomtypes = await RoomType.query().where('IsActived', true).fetch()
 
     return roomtypes
   }

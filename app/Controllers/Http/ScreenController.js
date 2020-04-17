@@ -20,7 +20,7 @@ class ScreenController {
    * @param {View} ctx.view
    */
   async index () {
-    const screens = await Screen.all()
+    const screens = await Screen.query().where('IsActived', true).fetch()
 
     return screens
   }
