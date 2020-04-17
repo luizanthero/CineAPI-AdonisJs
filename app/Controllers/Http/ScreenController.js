@@ -83,9 +83,9 @@ class ScreenController {
    */
   async destroy ({ params, request }) {
     const screen = await Screen.findOrFail(params.id)
-    const data = request.only(['IsActived'])
 
-    screen.merge(data)
+    screen.IsActived = false
+    
     await screen.save()
   }
 }
