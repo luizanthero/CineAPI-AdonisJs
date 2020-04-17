@@ -5,7 +5,7 @@ const Schema = use('Schema')
 
 class RoomTypeSchema extends Schema {
   up () {
-    this.create('RoomType', (table) => {
+    this.create('room_types', (table) => {
       table.increments()
       table.string('Description').notNullable()
       table.boolean('IsActived').defaultTo(true)
@@ -14,7 +14,7 @@ class RoomTypeSchema extends Schema {
   }
 
   down () {
-    this.drop('RoomType')
+    this.drop('room_types')
   }
 }
 

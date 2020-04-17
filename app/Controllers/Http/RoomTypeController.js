@@ -4,6 +4,8 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
+const RoomType = use('App/Models/RoomType')
+
 /**
  * Resourceful controller for interacting with roomtypes
  */
@@ -17,19 +19,10 @@ class RoomTypeController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index ({ request, response, view }) {
-  }
+  async index () {
+    const roomtypes = await RoomType.all()
 
-  /**
-   * Render a form to be used for creating a new roomtype.
-   * GET roomtypes/create
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async create ({ request, response, view }) {
+    return roomtypes
   }
 
   /**
@@ -40,7 +33,11 @@ class RoomTypeController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store ({ request, response }) {
+  async store ({ request }) {
+    const data = request.only(['Description', 'IsActived'])
+    const roomtype = await RoomType.create(data)
+
+    return roomtype
   }
 
   /**
@@ -52,19 +49,10 @@ class RoomTypeController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async show ({ params, request, response, view }) {
-  }
+  async show ({ params }) {
+    const roomtype = await RoomType.findOrFail(params.id)
 
-  /**
-   * Render a form to update an existing roomtype.
-   * GET roomtypes/:id/edit
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async edit ({ params, request, response, view }) {
+    return roomtype
   }
 
   /**
@@ -76,6 +64,13 @@ class RoomTypeController {
    * @param {Response} ctx.response
    */
   async update ({ params, request, response }) {
+    const roomtype = await RoomType.findOrFail(params.id)
+    const data = request.only(['Description', 'IsActived'])
+
+    roomtype.merge(data)
+    await roomtype.save()
+
+    return roomtype
   }
 
   /**
@@ -87,6 +82,11 @@ class RoomTypeController {
    * @param {Response} ctx.response
    */
   async destroy ({ params, request, response }) {
+    const roomtype = await RoomType.findOrFail(params.id)
+
+    roomtype.IsActived = false
+
+    await roomtype.save()
   }
 }
 
