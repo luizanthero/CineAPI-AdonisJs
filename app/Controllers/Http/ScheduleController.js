@@ -84,7 +84,7 @@ class ScheduleController {
   async destroy ({ params }) {
     const schedule = await Schedule.findOrFail(params.id)
 
-    schedule.IsActived = true
+    schedule.IsActived = false
 
     await schedule.save()
   }
