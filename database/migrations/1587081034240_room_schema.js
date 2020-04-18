@@ -8,10 +8,10 @@ class RoomSchema extends Schema {
     this.create('Room', (table) => {
       table.increments()
       table.integer('RoomTypeId').unsigned().notNullable()
-            .references('id').inTable('RoomType')
+            .references('id').inTable('room_types')
             .onUpdate('CASCADE').onDelete('CASCADE')
       table.integer('ScreenId').unsigned().notNullable()
-            .references('id').inTable('Screen')
+            .references('id').inTable('screens')
             .onUpdate('CASCADE').onDelete('CASCADE')
       table.string('Name').notNullable()
       table.boolean('IsActived').defaultTo(true)

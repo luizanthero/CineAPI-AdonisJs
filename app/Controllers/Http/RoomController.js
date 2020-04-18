@@ -4,6 +4,8 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
+const Room = use('App/Models/Room')
+
 /**
  * Resourceful controller for interacting with rooms
  */
@@ -17,19 +19,10 @@ class RoomController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index ({ request, response, view }) {
-  }
+  async index () {
+    const rooms = await Room.query().with('roomtype').with('screen').where('IsActived', true).fetch()
 
-  /**
-   * Render a form to be used for creating a new room.
-   * GET rooms/create
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async create ({ request, response, view }) {
+    return rooms
   }
 
   /**
@@ -40,7 +33,11 @@ class RoomController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store ({ request, response }) {
+  async store ({ request }) {
+    const data = request.only(['RoomTypeId', 'ScreenId', 'Name', 'IsActived'])
+    const room = await Room.create(data)
+
+    return room
   }
 
   /**
@@ -53,18 +50,6 @@ class RoomController {
    * @param {View} ctx.view
    */
   async show ({ params, request, response, view }) {
-  }
-
-  /**
-   * Render a form to update an existing room.
-   * GET rooms/:id/edit
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async edit ({ params, request, response, view }) {
   }
 
   /**
