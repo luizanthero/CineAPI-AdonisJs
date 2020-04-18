@@ -15,11 +15,11 @@ module.exports = {
   options: {
     swaggerDefinition: {
       info: {
-        title: 'Adonis 💘 Swagger',
+        title: 'API Cinema - AdonisJS',
         version: '1.0.0',
       },
   
-      basePath: '/',
+      basePath: 'http://localhost:3333',
 
       // Example security definitions.
       securityDefinitions: {
