@@ -4,6 +4,8 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
+const Film = use('App/Models/Film')
+
 /**
  * Resourceful controller for interacting with films
  */
@@ -18,18 +20,9 @@ class FilmController {
    * @param {View} ctx.view
    */
   async index ({ request, response, view }) {
-  }
+    const films = await Film.query().where('IsActived', true).fetch()
 
-  /**
-   * Render a form to be used for creating a new film.
-   * GET films/create
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async create ({ request, response, view }) {
+    return films
   }
 
   /**
@@ -40,7 +33,11 @@ class FilmController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store ({ request, response }) {
+  async store ({ request }) {
+    const data = request.only(['Name', 'ApiCode', 'IsActived'])
+    const film = await Film.create(data)
+
+    return film
   }
 
   /**
@@ -52,19 +49,10 @@ class FilmController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async show ({ params, request, response, view }) {
-  }
+  async show ({ params }) {
+    const film = await Film.findOrFail(params.id)
 
-  /**
-   * Render a form to update an existing film.
-   * GET films/:id/edit
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async edit ({ params, request, response, view }) {
+    return film
   }
 
   /**
@@ -75,7 +63,14 @@ class FilmController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async update ({ params, request, response }) {
+  async update ({ params, request }) {
+    const film = await Film.findOrFail(params.id)
+    const data = request.only(['Name', 'ApiCode', 'IsActived'])
+
+    film.merge(data)
+    await film.save()
+
+    return film
   }
 
   /**
@@ -86,7 +81,12 @@ class FilmController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy ({ params, request, response }) {
+  async destroy ({ params }) {
+    const film = await Film.findOrFail(params.id)
+
+    film.IsActived = false
+
+    await film.save()
   }
 }
 
