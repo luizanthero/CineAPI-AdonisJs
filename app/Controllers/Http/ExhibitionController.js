@@ -20,7 +20,13 @@ class ExhibitionController {
    * @param {View} ctx.view
    */
   async index () {
-    const exhibition = await Exhibition.query().with('film').with('room').with('schedule').fetch()
+    const exhibition = await Exhibition.query()
+          .with('film')
+          .with('room')
+          .with('roomtype')
+          .with('screen')
+          .with('schedule')
+          .fetch()
 
     return exhibition
   }
@@ -50,7 +56,13 @@ class ExhibitionController {
    * @param {View} ctx.view
    */
   async show ({ params }) {
-    const exhibition = await Exhibition.query().with('film').with('room').with('schedule').where('id', params.id).fetch()
+    const exhibition = await Exhibition.query()
+          .with('film')
+          .with('room')
+          .with('roomtype')
+          .with('screen')
+          .with('schedule')
+          .where('id', params.id).fetch()
 
     return exhibition
   }

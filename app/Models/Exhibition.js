@@ -12,6 +12,14 @@ class Exhibition extends Model {
         return this.belongsTo('App/Models/Room', 'RoomId', 'id')
     }
 
+    roomtype(){
+        return this.manyThrough('App/Models/Room', 'roomtype', 'id', 'id')
+    }
+
+    screen(){
+        return this.manyThrough('App/Models/Room', 'screen', 'id', 'id')
+    }
+
     schedule(){
         return this.belongsTo('App/Models/Schedule', 'ScheduleId', 'id')
     }
