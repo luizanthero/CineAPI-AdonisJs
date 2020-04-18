@@ -4,6 +4,8 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
+const Schedule = use('App/Models/Schedule')
+
 /**
  * Resourceful controller for interacting with schedules
  */
@@ -17,19 +19,10 @@ class ScheduleController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index ({ request, response, view }) {
-  }
+  async index () {
+    const schedules = await Schedule.query().where('IsActived', true).fetch()
 
-  /**
-   * Render a form to be used for creating a new schedule.
-   * GET schedules/create
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async create ({ request, response, view }) {
+    return schedules
   }
 
   /**
@@ -40,7 +33,11 @@ class ScheduleController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store ({ request, response }) {
+  async store ({ request }) {
+    const data = request.only(['Description', 'IsActived'])
+    const schedule = await Schedule.create(data)
+
+    return schedule
   }
 
   /**
@@ -52,19 +49,10 @@ class ScheduleController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async show ({ params, request, response, view }) {
-  }
+  async show ({ params }) {
+    const schedule = await Schedule.findOrFail(params.id)
 
-  /**
-   * Render a form to update an existing schedule.
-   * GET schedules/:id/edit
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async edit ({ params, request, response, view }) {
+    return schedule
   }
 
   /**
@@ -75,7 +63,14 @@ class ScheduleController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async update ({ params, request, response }) {
+  async update ({ params, request }) {
+    const schedule = await Schedule.findOrFail(params.id)
+    const data = request.only(['Description', 'IsActived'])
+
+    schedule.merge(data)
+    await schedule.save()
+
+    return schedule
   }
 
   /**
@@ -86,7 +81,12 @@ class ScheduleController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy ({ params, request, response }) {
+  async destroy ({ params }) {
+    const schedule = await Schedule.findOrFail(params.id)
+
+    schedule.IsActived = true
+
+    await schedule.save()
   }
 }
 
