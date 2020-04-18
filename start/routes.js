@@ -19,6 +19,7 @@ const Route = use('Route')
 Route.resource('/screens', 'ScreenController').apiOnly()
 Route.resource('/roomtypes', 'RoomTypeController').apiOnly()
 Route.resource('/rooms', 'RoomController').apiOnly()
+Route.resource('/films', 'FilmController').apiOnly()
 
 Route.get('/', () => {
   return { greeting: 'Hello world in JSON' }
