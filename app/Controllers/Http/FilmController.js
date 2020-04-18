@@ -19,7 +19,7 @@ class FilmController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index ({ request, response, view }) {
+  async index () {
     const films = await Film.query().where('IsActived', true).fetch()
 
     return films
