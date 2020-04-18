@@ -49,7 +49,10 @@ class RoomController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async show ({ params, request, response, view }) {
+  async show ({ params }) {
+    const room = await Room.query().with('roomtype').with('screen').where('id', params.id).fetch()
+
+    return room
   }
 
   /**
@@ -60,7 +63,14 @@ class RoomController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async update ({ params, request, response }) {
+  async update ({ params, request }) {
+    const room = await Room.findOrFail(params.id)
+    const data = request.only(['RoomTypeId', 'ScreenId', 'Name', 'IsActived'])
+
+    room.merge(data)
+    await room.save()
+
+    return room
   }
 
   /**
@@ -71,7 +81,12 @@ class RoomController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy ({ params, request, response }) {
+  async destroy ({ params }) {
+    const room = await Room.findOrFail(params.id)
+
+    room.IsActived = false
+
+    await room.save()
   }
 }
 
