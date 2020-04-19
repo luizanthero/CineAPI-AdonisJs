@@ -1,93 +1,194 @@
-'use strict'
+"use strict";
 
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
-const Film = use('App/Models/Film')
+const Film = use("App/Models/Film");
 
 /**
  * Resourceful controller for interacting with films
  */
 class FilmController {
+  //#region [Suagger: Method GET]
   /**
-   * Show a list of all films.
-   * GET films
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
+   * @swagger
+   * /films:
+   *  get:
+   *    tags:
+   *      - Film
+   *    summary: Lists all films
+   *    produces:
+   *      - application/json
+   *    responses:
+   *      200:
+   *        description: Return all films
+   *        example:
+   *          id: 1
+   *          Name: "Wonder Woman"
+   *          ApiCode: "tt0451279"
+   *          IsActived: true
+   *      500:
+   *        description: Internal Error
    */
-  async index () {
-    const films = await Film.query().where('IsActived', true).fetch()
+  //#endregion
+  async index() {
+    const films = await Film.query().where("IsActived", true).fetch();
 
-    return films
+    return films;
   }
 
+  //#region [Swagger: Method POST]
   /**
-   * Create/save a new film.
-   * POST films
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
+   * @swagger
+   * /films:
+   *  post:
+   *    tags:
+   *      - Film
+   *    summary: Create a film
+   *    produces:
+   *      - application/json
+   *    parameters:
+   *      - name: film
+   *        in: body
+   *        required: false
+   *        type: string
+   *        example:
+   *          "{\n
+   *            \t\"Name\": \"Wonder Woman\",
+   *            \n\t\"ApiCode\": \"tt0451279\"
+   *          \n}"
+   *        schema:
+   *          $ref: '/films'
+   *    responses:
+   *      200:
+   *        description: Return a film
+   *        example:
+   *          id: 1
+   *          Name: "Wonder Woman"
+   *          ApiCode: "tt0451279"
+   *          IsActived: true
+   *      500:
+   *        description: Internal Error
    */
-  async store ({ request }) {
-    const data = request.only(['Name', 'ApiCode', 'IsActived'])
-    const film = await Film.create(data)
+  //#endregion
+  async store({ request }) {
+    const data = request.only(["Name", "ApiCode", "IsActived"]);
+    const film = await Film.create(data);
 
-    return film
+    return film;
   }
 
+  //#region [Swagger: Method GET]
   /**
-   * Display a single film.
-   * GET films/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
+   * @swagger
+   * /films/{id}:
+   *  get:
+   *    tags:
+   *      - Film
+   *    summary: Get a film by Id
+   *    produces:
+   *      - application/json
+   *    parameters:
+   *      - name: id
+   *        in: path
+   *        required: true
+   *        type: integer
+   *    responses:
+   *      200:
+   *        description: Return a film
+   *        example:
+   *          id: 1
+   *          Name: "Wonder Woman"
+   *          ApiCode: "tt0451279"
+   *          IsActived: true
+   *      500:
+   *        description: Internal Error
    */
-  async show ({ params }) {
-    const film = await Film.findOrFail(params.id)
+  //#endregion
+  async show({ params }) {
+    const film = await Film.findOrFail(params.id);
 
-    return film
+    return film;
   }
 
+  //#region [Swagger: Method PUT]
   /**
-   * Update film details.
-   * PUT or PATCH films/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
+   * @swagger
+   * /films/{id}:
+   *  put:
+   *    tags:
+   *      - Film
+   *    summary: Update a film by Id
+   *    produces:
+   *      - application/json
+   *    parameters:
+   *      - name: id
+   *        in: path
+   *        required: true
+   *        type: integer
+   *      - name: film
+   *        in: body
+   *        required: false
+   *        type: string
+   *        example:
+   *          "{\n
+   *            \t\"Name\": \"Wonder Woman\",
+   *            \n\t\"ApiCode\": \"tt0451279\"
+   *          \n}"
+   *        schema:
+   *          $ref: '/films'
+   *    responses:
+   *      200:
+   *        description: Return a film updated
+   *        example:
+   *          id: 1
+   *          Name: "Wonder Woman"
+   *          ApiCode: "tt0451279"
+   *          IsActived: true
+   *      500:
+   *        description: Internal Error
    */
-  async update ({ params, request }) {
-    const film = await Film.findOrFail(params.id)
-    const data = request.only(['Name', 'ApiCode', 'IsActived'])
+  //#endregion
+  async update({ params, request }) {
+    const film = await Film.findOrFail(params.id);
+    const data = request.only(["Name", "ApiCode", "IsActived"]);
 
-    film.merge(data)
-    await film.save()
+    film.merge(data);
+    await film.save();
 
-    return film
+    return film;
   }
 
+  //#region [Swagger: Method DELETE]
   /**
-   * Delete a film with id.
-   * DELETE films/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
+   * @swagger
+   * /films/{id}:
+   *  delete:
+   *    tags:
+   *      - Film
+   *    summary: Delete a film by Id
+   *    produces:
+   *      - application/json
+   *    parameters:
+   *      - name: id
+   *        in: path
+   *        required: true
+   *        type: integer
+   *    responses:
+   *      200:
+   *        description: Success
+   *      500:
+   *        description: Internal Error
    */
-  async destroy ({ params }) {
-    const film = await Film.findOrFail(params.id)
+  //#endregion
+  async destroy({ params }) {
+    const film = await Film.findOrFail(params.id);
 
-    film.IsActived = false
+    film.IsActived = false;
 
-    await film.save()
+    await film.save();
   }
 }
 
-module.exports = FilmController
+module.exports = FilmController;
