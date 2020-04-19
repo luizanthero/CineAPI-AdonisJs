@@ -1,22 +1,21 @@
-'use strict'
+"use strict";
 
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
-const Screen = use('App/Models/Screen')
+const Screen = use("App/Models/Screen");
 
 /**
  * Resourceful controller for interacting with screens
  */
 class ScreenController {
-
   //#region [Swagger: Method GET]
   /**
    * @swagger
    * /screens:
    *   get:
-   *      tags: 
+   *      tags:
    *        - Screen
    *      summary: Lists all screens
    *      produces:
@@ -26,14 +25,16 @@ class ScreenController {
    *            description: Return all screens
    *            example:
    *              id: 1
-   *              Size: 'Extreme'
+   *              Size: "Extreme"
    *              IsActived: true
+   *          500:
+   *            description: Internal Error
    */
   //#endregion
-  async index () {
-    const screens = await Screen.query().where('IsActived', true).fetch()
+  async index() {
+    const screens = await Screen.query().where("IsActived", true).fetch();
 
-    return screens
+    return screens;
   }
 
   //#region [Swagger: Method POST]
@@ -41,7 +42,7 @@ class ScreenController {
    * @swagger
    * /screens:
    *   post:
-   *      tags: 
+   *      tags:
    *        - Screen
    *      summary: Create a screen
    *      produces:
@@ -51,8 +52,8 @@ class ScreenController {
    *          in: body
    *          required: false
    *          type: string
-   *          example: 
-   *            "{\n 
+   *          example:
+   *            "{\n
    *              \t\"Size\": \"Grande\"
    *            \n}"
    *          schema:
@@ -62,15 +63,17 @@ class ScreenController {
    *            description: Return a screen
    *            example:
    *              id: 1
-   *              Size: 'Extreme'
+   *              Size: "Extreme"
    *              IsActived: true
+   *          500:
+   *            description: Internal Error
    */
   //#endregion
-  async store ({ request }) {
-    const data = request.only(['Size', 'IsActived'])
-    const screen = await Screen.create(data)
+  async store({ request }) {
+    const data = request.only(["Size", "IsActived"]);
+    const screen = await Screen.create(data);
 
-    return screen
+    return screen;
   }
 
   //#region [Swagger: Method GET]
@@ -78,7 +81,7 @@ class ScreenController {
    * @swagger
    * /screens/{id}:
    *   get:
-   *      tags: 
+   *      tags:
    *        - Screen
    *      summary: Get a screen by Id
    *      produces:
@@ -93,22 +96,24 @@ class ScreenController {
    *            description: Return a screen
    *            example:
    *              id: 1
-   *              Size: 'Extreme'
+   *              Size: "Extreme"
    *              IsActived: true
+   *          500:
+   *            description: Internal Error
    */
   //#endregion
-  async show ({ params }) {
-    const screen = await Screen.findOrFail(params.id)
+  async show({ params }) {
+    const screen = await Screen.findOrFail(params.id);
 
-    return screen
+    return screen;
   }
-  
+
   //#region [Swagger: Method PUT]
   /**
    * @swagger
    * /screens/{id}:
    *   put:
-   *      tags: 
+   *      tags:
    *        - Screen
    *      summary: Update a screen by Id
    *      produces:
@@ -122,7 +127,7 @@ class ScreenController {
    *          in: body
    *          required: false
    *          type: string
-   *          example: 
+   *          example:
    *            "{\n
    *              \t\"Size\": \"Grande\"
    *            \n}"
@@ -133,18 +138,20 @@ class ScreenController {
    *            description: Return a screen updated
    *            example:
    *              id: 1
-   *              Size: 'Extreme'
+   *              Size: "Extreme"
    *              IsActived: true
+   *          500:
+   *            description: Internal Error
    */
   //#endregion
-  async update ({ params, request }) {
-    const screen = await Screen.findOrFail(params.id)
-    const data = request.only(['Size', 'IsActived'])
+  async update({ params, request }) {
+    const screen = await Screen.findOrFail(params.id);
+    const data = request.only(["Size", "IsActived"]);
 
-    screen.merge(data)
-    await screen.save()
+    screen.merge(data);
+    await screen.save();
 
-    return screen
+    return screen;
   }
 
   //#region [Swagger: Method DELETE]
@@ -152,7 +159,7 @@ class ScreenController {
    * @swagger
    * /screens/{id}:
    *   delete:
-   *      tags: 
+   *      tags:
    *        - Screen
    *      summary: Delete a screen by Id
    *      produces:
@@ -165,15 +172,17 @@ class ScreenController {
    *      responses:
    *          200:
    *            description: Success
+   *          500:
+   *            description: Internal Error
    */
   //#endregion
-  async destroy ({ params, request }) {
-    const screen = await Screen.findOrFail(params.id)
+  async destroy({ params, request }) {
+    const screen = await Screen.findOrFail(params.id);
 
-    screen.IsActived = false
-    
-    await screen.save()
+    screen.IsActived = false;
+
+    await screen.save();
   }
 }
 
-module.exports = ScreenController
+module.exports = ScreenController;
