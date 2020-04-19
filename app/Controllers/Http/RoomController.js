@@ -180,7 +180,7 @@ class RoomController {
    *  delete:
    *    tags:
    *      - Room
-   *    rummary: Delete a room by Id
+   *    summary: Delete a room by Id
    *    produces:
    *      - application/json
    *    parameters:
