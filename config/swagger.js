@@ -19,7 +19,7 @@ module.exports = {
         version: '1.0.0',
       },
   
-      basePath: 'http://localhost:3333',
+      basePath: '',
 
       // Example security definitions.
       securityDefinitions: {
