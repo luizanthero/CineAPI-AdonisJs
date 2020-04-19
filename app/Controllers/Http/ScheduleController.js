@@ -1,93 +1,188 @@
-'use strict'
+"use strict";
 
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
-const Schedule = use('App/Models/Schedule')
+const Schedule = use("App/Models/Schedule");
 
 /**
  * Resourceful controller for interacting with schedules
  */
 class ScheduleController {
+  //#region [Swagger: Method GET]
   /**
-   * Show a list of all schedules.
-   * GET schedules
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
+   * @swagger
+   * /schedules:
+   *  get:
+   *    tags:
+   *      - Schedule
+   *    summary: Lists all schedules
+   *    produces:
+   *      -application/json
+   *    responses:
+   *      200:
+   *        description: Return all schedules
+   *        example:
+   *          id: 1
+   *          Description: "Noite"
+   *          IsActived: true
+   *      500:
+   *        description: Internal Error
    */
-  async index () {
-    const schedules = await Schedule.query().where('IsActived', true).fetch()
+  //#endregion
+  async index() {
+    const schedules = await Schedule.query().where("IsActived", true).fetch();
 
-    return schedules
+    return schedules;
   }
 
+  //#region [Swagger: Method POST]
   /**
-   * Create/save a new schedule.
-   * POST schedules
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
+   * @swagger
+   * /schedules:
+   *  post:
+   *    tags:
+   *      - Schedule
+   *    summary: Create a schedule
+   *    produces:
+   *      - application/json
+   *    parameters:
+   *      - name: schedule
+   *        in: body
+   *        required: false
+   *        type: string
+   *        example:
+   *          "{\n
+   *            \t\"Description\": \"Noite\"
+   *          \n}"
+   *        schema:
+   *          $ref: '/schedules'
+   *    responses:
+   *      200:
+   *        description: Return a schedule
+   *        example:
+   *          id: 1
+   *          Description: "Noite"
+   *          IsActived: true
+   *      500:
+   *        description: Internal Error
    */
-  async store ({ request }) {
-    const data = request.only(['Description', 'IsActived'])
-    const schedule = await Schedule.create(data)
+  //#endregion
+  async store({ request }) {
+    const data = request.only(["Description", "IsActived"]);
+    const schedule = await Schedule.create(data);
 
-    return schedule
+    return schedule;
   }
 
+  //#region [Swagger: Method GET]
   /**
-   * Display a single schedule.
-   * GET schedules/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
+   * @swagger
+   * /schedules/{id}:
+   *  get:
+   *    tags:
+   *      - Schedule
+   *    summary: Get a schedule by Id
+   *    produces:
+   *      - application/json
+   *    parameters:
+   *      - name: id
+   *        in: path
+   *        required: true
+   *        type: integer
+   *    responses:
+   *      200:
+   *        description: Return a schedule
+   *        example:
+   *          id: 1
+   *          Description: "Noite"
+   *          IsActived: true
+   *      500:
+   *        description: Internal Error
    */
-  async show ({ params }) {
-    const schedule = await Schedule.findOrFail(params.id)
+  //#endregion
+  async show({ params }) {
+    const schedule = await Schedule.findOrFail(params.id);
 
-    return schedule
+    return schedule;
   }
 
+  //#region [Swagger: Method PUT]
   /**
-   * Update schedule details.
-   * PUT or PATCH schedules/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
+   * @swagger
+   * /schedules/{id}:
+   *  put:
+   *    tags:
+   *      - Schedule
+   *    summary: Update a schedule by Id
+   *    produces:
+   *      - application/json
+   *    parameters:
+   *      - name: id
+   *        in: path
+   *        required: true
+   *        type: integer
+   *      - name: schedule
+   *        in: body
+   *        required: false
+   *        type: string
+   *        example:
+   *          "{\n
+   *            \t\"Description\": \"Noite\"
+   *          \n}"
+   *        schema:
+   *          $ref: '/schedules'
+   *    responses:
+   *      200:
+   *        description: Return a schedule updated
+   *        example:
+   *          id: 1
+   *          Description: "Noite"
+   *          IsActived: true
+   *      500:
+   *        description Internal Error
    */
-  async update ({ params, request }) {
-    const schedule = await Schedule.findOrFail(params.id)
-    const data = request.only(['Description', 'IsActived'])
+  //#endregion
+  async update({ params, request }) {
+    const schedule = await Schedule.findOrFail(params.id);
+    const data = request.only(["Description", "IsActived"]);
 
-    schedule.merge(data)
-    await schedule.save()
+    schedule.merge(data);
+    await schedule.save();
 
-    return schedule
+    return schedule;
   }
 
+  //#region [Swagger: Method DELETE]
   /**
-   * Delete a schedule with id.
-   * DELETE schedules/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
+   * @swagger
+   * /schedules/{id}:
+   *  delete:
+   *    tags:
+   *      - Schedule
+   *    summary: Delete a schedule by Id
+   *    produces:
+   *      - application/json
+   *    parameters:
+   *      - name: id
+   *        in: path
+   *        required: true
+   *        type: integer
+   *    responses:
+   *      200:
+   *        description: Success
+   *      500:
+   *        description: Internal Error
    */
-  async destroy ({ params }) {
-    const schedule = await Schedule.findOrFail(params.id)
+  //#endregion
+  async destroy({ params }) {
+    const schedule = await Schedule.findOrFail(params.id);
 
-    schedule.IsActived = false
+    schedule.IsActived = false;
 
-    await schedule.save()
+    await schedule.save();
   }
 }
 
-module.exports = ScheduleController
+module.exports = ScheduleController;
