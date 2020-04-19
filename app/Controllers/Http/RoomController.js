@@ -1,93 +1,207 @@
-'use strict'
+"use strict";
 
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
-const Room = use('App/Models/Room')
+const Room = use("App/Models/Room");
 
 /**
  * Resourceful controller for interacting with rooms
  */
 class RoomController {
+  //#region [Swagger: Method GET]
   /**
-   * Show a list of all rooms.
-   * GET rooms
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
+   * @swagger
+   * /rooms:
+   *  get:
+   *    tags:
+   *      - Room
+   *    summary: Lists all rooms
+   *    produces:
+   *      - application/json
+   *    responses:
+   *      200:
+   *        description: Return all rooms
+   *        example:
+   *          id: 1
+   *          RoomTypeId: 1
+   *          ScreenId: 1
+   *          Name: "A01"
+   *          IsActivec: true
+   *      500:
+   *        description: Internal Error
    */
-  async index () {
-    const rooms = await Room.query().with('roomtype').with('screen').where('IsActived', true).fetch()
+  //#endregion
+  async index() {
+    const rooms = await Room.query()
+      .with("roomtype")
+      .with("screen")
+      .where("IsActived", true)
+      .fetch();
 
-    return rooms
+    return rooms;
   }
 
+  //#region [Swagger: Method POST]
   /**
-   * Create/save a new room.
-   * POST rooms
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
+   * @swagger
+   * /rooms:
+   *  post:
+   *    tags:
+   *      - Room
+   *    summary: Create a room
+   *    produces:
+   *      - application/json
+   *    parameters:
+   *      - name: room
+   *        in: body
+   *        required: false
+   *        type: string
+   *        example:
+   *          "{\n
+   *            \t\"RoomTypeId\": 1,
+   *            \n\t\"ScreenId\": 1,
+   *            \n\t\"Name\": \"A01\"
+   *          \n}"
+   *        schema:
+   *          $ref: '/rooms'
+   *    responses:
+   *        200:
+   *          description: Return a room
+   *          example:
+   *            id: 1
+   *            RoomTypeId: 1
+   *            ScreenId: 1
+   *            Name: "A01"
+   *        500:
+   *          description: Internal Error
    */
-  async store ({ request }) {
-    const data = request.only(['RoomTypeId', 'ScreenId', 'Name', 'IsActived'])
-    const room = await Room.create(data)
+  //#endregion
+  async store({ request }) {
+    const data = request.only(["RoomTypeId", "ScreenId", "Name", "IsActived"]);
+    const room = await Room.create(data);
 
-    return room
+    return room;
   }
 
+  //#region [Swagger: Method GET]
   /**
-   * Display a single room.
-   * GET rooms/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
+   * @swagger
+   * /rooms/{id}:
+   *  get:
+   *    tags:
+   *      - Room
+   *    summary: Get a room by Id
+   *    produces:
+   *      - application/json
+   *    parameters:
+   *      - name: id
+   *        in: path
+   *        required: true
+   *        type: integer
+   *    responses:
+   *      200:
+   *        description: Return a room
+   *        example:
+   *          id: 1
+   *          RoomTypeId: 1
+   *          ScreenId: 1
+   *          Name: "A01"
+   *          IsActived: true
+   *      500:
+   *        description: Internal Error
    */
-  async show ({ params }) {
-    const room = await Room.query().with('roomtype').with('screen').where('id', params.id).fetch()
+  //#endregion
+  async show({ params }) {
+    const room = await Room.query()
+      .with("roomtype")
+      .with("screen")
+      .where("id", params.id)
+      .fetch();
 
-    return room
+    return room;
   }
 
+  //#region [Swagger: Method PUT]
   /**
-   * Update room details.
-   * PUT or PATCH rooms/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
+   * @swagger
+   * /rooms/{id}:
+   *  put:
+   *    tags:
+   *      - Room
+   *    summary: Update a room by Id
+   *    produces:
+   *      - application/json
+   *    parameters:
+   *      - name: id
+   *        in: path
+   *        required: true
+   *        type: integer
+   *      - name: room
+   *        in: body
+   *        required: false
+   *        type: string
+   *        example:
+   *          "{\n
+   *            \t\"RoomTypeId\": 1,
+   *            \n\t\"ScreenId\": 1,
+   *            \n\t\"Name\": \"A01\"
+   *          \n}"
+   *        schema:
+   *          $ref: '/rooms'
+   *    responses:
+   *      200:
+   *        description: Return a room updated
+   *        example:
+   *          id: 1
+   *          RoomTypeId: 1
+   *          ScreenId: 1
+   *          Name: 'A01'
+   *          IsActived: true
+   *      500:
+   *        description: Internal Error
    */
-  async update ({ params, request }) {
-    const room = await Room.findOrFail(params.id)
-    const data = request.only(['RoomTypeId', 'ScreenId', 'Name', 'IsActived'])
+  //#endregion
+  async update({ params, request }) {
+    const room = await Room.findOrFail(params.id);
+    const data = request.only(["RoomTypeId", "ScreenId", "Name", "IsActived"]);
 
-    room.merge(data)
-    await room.save()
+    room.merge(data);
+    await room.save();
 
-    return room
+    return room;
   }
 
+  //#region [Swagger: Method DELETE]
   /**
-   * Delete a room with id.
-   * DELETE rooms/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
+   * @swagger
+   * /rooms/{id}:
+   *  delete:
+   *    tags:
+   *      - Room
+   *    rummary: Delete a room by Id
+   *    produces:
+   *      - application/json
+   *    parameters:
+   *      - name: id
+   *        in: path
+   *        required: true
+   *        type: integer
+   *    responses:
+   *      200:
+   *        description: Success
+   *      500:
+   *        description: Internal Error
    */
-  async destroy ({ params }) {
-    const room = await Room.findOrFail(params.id)
+  //#endregion
+  async destroy({ params }) {
+    const room = await Room.findOrFail(params.id);
 
-    room.IsActived = false
+    room.IsActived = false;
 
-    await room.save()
+    await room.save();
   }
 }
 
-module.exports = RoomController
+module.exports = RoomController;
