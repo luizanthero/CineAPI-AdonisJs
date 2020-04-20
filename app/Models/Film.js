@@ -19,6 +19,7 @@ const Model = use("Model");
  *              type: string
  *          IsActived:
  *              type: boolean
+ *              default: true
  *      required:
  *          - Name
  *          - ApiCode
