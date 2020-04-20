@@ -1,9 +1,26 @@
-'use strict'
+"use strict";
 
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
-const Model = use('Model')
+const Model = use("Model");
 
-class Schedule extends Model {
-}
+/**
+ *
+ * @swagger
+ *
+ * definitions:
+ *  Schedule:
+ *      type: object
+ *      properties:
+ *          id:
+ *              type: int
+ *          Description:
+ *              type: string
+ *          IsActived:
+ *              type: boolean
+ *              default: true
+ *      required:
+ *          - Description
+ */
+class Schedule extends Model {}
 
-module.exports = Schedule
+module.exports = Schedule;
