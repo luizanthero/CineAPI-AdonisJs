@@ -1,105 +1,209 @@
-'use strict'
+"use strict";
 
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
-const Exhibition = use('App/Models/Exhibition')
+const Exhibition = use("App/Models/Exhibition");
 
 /**
  * Resourceful controller for interacting with exhibitions
  */
 class ExhibitionController {
+  //#region [Swagger: Method GET]
   /**
-   * Show a list of all exhibitions.
-   * GET exhibitions
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
+   * @swagger
+   * /exhibitions:
+   *  get:
+   *    tags:
+   *      - Exhibition
+   *    summary: Lists all exhibitions
+   *    produces:
+   *      - application/json
+   *    responses:
+   *      200:
+   *        description: Return all exhibitions
+   *        example:
+   *          id: 1
+   *          FilmId: 1
+   *          RoomId: 1
+   *          ScheduleId: 1
+   *      500:
+   *        description: Internal Error
    */
-  async index () {
+  //#endregion
+  async index() {
     const exhibition = await Exhibition.query()
-          .with('film')
-          .with('room')
-          .with('roomtype')
-          .with('screen')
-          .with('schedule')
-          .fetch()
+      .with("film")
+      .with("room")
+      .with("roomtype")
+      .with("screen")
+      .with("schedule")
+      .fetch();
 
-    return exhibition
+    return exhibition;
   }
 
+  //#region [Swagger: Method POST]
   /**
-   * Create/save a new exhibition.
-   * POST exhibitions
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
+   * @swagger
+   * /exhibitions:
+   *  post:
+   *    tags:
+   *      - Exhibition
+   *    summary: Create an exhibition
+   *    produces:
+   *      - application/json
+   *    parameters:
+   *      - name: exhibition
+   *        in: body
+   *        required: false
+   *        type: string
+   *        example:
+   *          "{\n
+   *            \t\"FilmId\": 1,
+   *            \n\t\"RoomId\": 1,
+   *            \n\t\"ScheduleId\": 1
+   *          \n}"
+   *        schema:
+   *          $ref: '/exhibitions'
+   *    responses:
+   *      200:
+   *        description: Return an exhibition
+   *        example:
+   *          id: 1
+   *          FilmId: 1
+   *          RoomId: 1
+   *          ScheduleId: 1
+   *      500:
+   *        description: Internal Error
    */
-  async store ({ request }) {
-    const data = request.only(['FilmId', 'RoomId', 'ScheduleId'])
-    const exhibition = Exhibition.create(data)
+  //#endregion
+  async store({ request }) {
+    const data = request.only(["FilmId", "RoomId", "ScheduleId"]);
+    const exhibition = Exhibition.create(data);
 
-    return exhibition
+    return exhibition;
   }
 
+  //#region [Swagger: Method GET]
   /**
-   * Display a single exhibition.
-   * GET exhibitions/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
+   * @swagger
+   * /exhibitions/{id}:
+   *  get:
+   *    tags:
+   *      - Exhibition
+   *    summary: Get an exhibition by Id
+   *    produces:
+   *      - application/json
+   *    parameters:
+   *      - name: id
+   *        in: path
+   *        required: true
+   *        type: integer
+   *    responses:
+   *      200:
+   *        description: Return an exhibition
+   *        example:
+   *          id: 1
+   *          FilmId: 1
+   *          RoomId: 1
+   *          Schedule: 1
+   *      500:
+   *        description: Internal Error
    */
-  async show ({ params }) {
+  //#endregion
+  async show({ params }) {
     const exhibition = await Exhibition.query()
-          .with('film')
-          .with('room')
-          .with('roomtype')
-          .with('screen')
-          .with('schedule')
-          .where('id', params.id).fetch()
+      .with("film")
+      .with("room")
+      .with("roomtype")
+      .with("screen")
+      .with("schedule")
+      .where("id", params.id)
+      .fetch();
 
-    return exhibition
+    return exhibition;
   }
 
+  //#region [Swagger: Method PUT]
   /**
-   * Update exhibition details.
-   * PUT or PATCH exhibitions/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
+   * @swagger
+   * /exhibitions/{id}:
+   *  put:
+   *    tags:
+   *      - Exhibition
+   *    summary: Update an screen by Id
+   *    produces:
+   *      - application/json
+   *    parameters:
+   *      - name: id
+   *        in: path
+   *        required: true
+   *        type: integer
+   *      - name: exhibition
+   *        in: body
+   *        required: false
+   *        type: string
+   *        example:
+   *          "{\n
+   *            \t\"FilmId\": 1,
+   *            \n\t\"RoomId\": 1,
+   *            \n\t\"ScheduleId\": 1
+   *          \n}"
+   *        schema:
+   *          $ref: '/exhibitions'
+   *    responses:
+   *      200:
+   *        description: Return an exhibition updated
+   *        example:
+   *          id: 1
+   *          FilmId: 1
+   *          RoomId: 1
+   *          ScheduleId: 1
+   *      500:
+   *        description: Internal Error
    */
-  async update ({ params, request }) {
-    const exhibition = await Exhibition.findOrFail(params.id)
-    const data = request.only(['FilmId', 'RoomId', 'ScheduleId'])
+  //#endregion
+  async update({ params, request }) {
+    const exhibition = await Exhibition.findOrFail(params.id);
+    const data = request.only(["FilmId", "RoomId", "ScheduleId"]);
 
-    exhibition.merge(data)
-    await exhibition.save()
+    exhibition.merge(data);
+    await exhibition.save();
 
-    return exhibition
+    return exhibition;
   }
 
+  //#region [Swagger: Method DELETE]
   /**
-   * Delete a exhibition with id.
-   * DELETE exhibitions/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
+   * @swagger
+   * /exhibitions/{id}:
+   *  delete:
+   *    tags:
+   *      - Exhibition
+   *    summary: Delete an exhibition by Id
+   *    produces:
+   *      - application/json
+   *    parameters:
+   *      - name: id
+   *        in: path
+   *        required: true
+   *        type: integer
+   *    responses:
+   *      200:
+   *        description: Success
+   *      500:
+   *        description: Internal Error
    */
-  async destroy ({ params }) {
-    const exhibition = await Exhibition.findOrFail(params.id)
+  //#endregion
+  async destroy({ params }) {
+    const exhibition = await Exhibition.findOrFail(params.id);
 
-    exhibition.IsActived = false
+    exhibition.IsActived = false;
 
-    await exhibition.save()
+    await exhibition.save();
   }
 }
 
-module.exports = ExhibitionController
+module.exports = ExhibitionController;
