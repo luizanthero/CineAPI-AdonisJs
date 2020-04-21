@@ -4,7 +4,7 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
-const RoomType = use("App/Models/RoomType");
+const RoomType = use("App/Business/Http/RoomTypeBusiness");
 
 /**
  * Resourceful controller for interacting with roomtypes
@@ -32,7 +32,7 @@ class RoomTypeController {
    */
   //#endregion
   async index() {
-    const roomtypes = await RoomType.query().where("IsActived", true).fetch();
+    const roomtypes = await RoomType.GetAll();
 
     return roomtypes;
   }
@@ -70,8 +70,7 @@ class RoomTypeController {
    */
   //#endregion
   async store({ request }) {
-    const data = request.only(["Description", "IsActived"]);
-    const roomtype = await RoomType.create(data);
+    const roomtype = await RoomType.Create(request);
 
     return roomtype;
   }
@@ -103,7 +102,7 @@ class RoomTypeController {
    */
   //#endregion
   async show({ params }) {
-    const roomtype = await RoomType.findOrFail(params.id);
+    const roomtype = await RoomType.GetById(params.id);
 
     return roomtype;
   }
@@ -145,11 +144,7 @@ class RoomTypeController {
    */
   //#endregion
   async update({ params, request }) {
-    const roomtype = await RoomType.findOrFail(params.id);
-    const data = request.only(["Description", "IsActived"]);
-
-    roomtype.merge(data);
-    await roomtype.save();
+    const roomtype = await RoomType.Update(params.id, request);
 
     return roomtype;
   }
@@ -177,11 +172,7 @@ class RoomTypeController {
    */
   //#endregion
   async destroy({ params }) {
-    const roomtype = await RoomType.findOrFail(params.id);
-
-    roomtype.IsActived = false;
-
-    await roomtype.save();
+    await RoomType.Delete(params.id);
   }
 }
 
