@@ -4,7 +4,7 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
-const Screen = use("App/Models/Screen");
+const Screen = use("App/Business/Http/ScreenBusiness");
 
 /**
  * Resourceful controller for interacting with screens
@@ -32,7 +32,7 @@ class ScreenController {
    */
   //#endregion
   async index() {
-    const screens = await Screen.query().where("IsActived", true).fetch();
+    const screens = await Screen.GetAll();
 
     return screens;
   }
@@ -70,8 +70,7 @@ class ScreenController {
    */
   //#endregion
   async store({ request }) {
-    const data = request.only(["Size", "IsActived"]);
-    const screen = await Screen.create(data);
+    const screen = await Screen.Create(request);
 
     return screen;
   }
@@ -103,7 +102,7 @@ class ScreenController {
    */
   //#endregion
   async show({ params }) {
-    const screen = await Screen.findOrFail(params.id);
+    const screen = await Screen.GetById(params.id);
 
     return screen;
   }
@@ -145,11 +144,7 @@ class ScreenController {
    */
   //#endregion
   async update({ params, request }) {
-    const screen = await Screen.findOrFail(params.id);
-    const data = request.only(["Size", "IsActived"]);
-
-    screen.merge(data);
-    await screen.save();
+    const screen = await Screen.Update(params.id, request);
 
     return screen;
   }
@@ -176,12 +171,8 @@ class ScreenController {
    *            description: Internal Error
    */
   //#endregion
-  async destroy({ params, request }) {
-    const screen = await Screen.findOrFail(params.id);
-
-    screen.IsActived = false;
-
-    await screen.save();
+  async destroy({ params }) {
+    await Screen.Delete(params.id);
   }
 }
 
