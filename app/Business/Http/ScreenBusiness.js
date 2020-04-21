@@ -2,9 +2,6 @@
 
 const Screen = use("App/Models/Screen");
 
-/**
- * Resourceful controller for interacting with screens
- */
 class ScreenBusiness {
   static async GetAll() {
     const screens = await Screen.query().where("IsActived", true).fetch();
