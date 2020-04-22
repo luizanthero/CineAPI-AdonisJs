@@ -4,7 +4,7 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
-const Room = use("App/Models/Room");
+const Room = use("App/Business/Http/RoomBusiness");
 
 /**
  * Resourceful controller for interacting with rooms
@@ -34,11 +34,7 @@ class RoomController {
    */
   //#endregion
   async index() {
-    const rooms = await Room.query()
-      .with("roomtype")
-      .with("screen")
-      .where("IsActived", true)
-      .fetch();
+    const rooms = await Room.GetAll();
 
     return rooms;
   }
@@ -79,8 +75,7 @@ class RoomController {
    */
   //#endregion
   async store({ request }) {
-    const data = request.only(["RoomTypeId", "ScreenId", "Name", "IsActived"]);
-    const room = await Room.create(data);
+    const room = await Room.Create(request);
 
     return room;
   }
@@ -114,11 +109,7 @@ class RoomController {
    */
   //#endregion
   async show({ params }) {
-    const room = await Room.query()
-      .with("roomtype")
-      .with("screen")
-      .where("id", params.id)
-      .fetch();
+    const room = await Room.GetById(params.id);
 
     return room;
   }
@@ -164,11 +155,7 @@ class RoomController {
    */
   //#endregion
   async update({ params, request }) {
-    const room = await Room.findOrFail(params.id);
-    const data = request.only(["RoomTypeId", "ScreenId", "Name", "IsActived"]);
-
-    room.merge(data);
-    await room.save();
+    const room = await Room.Update(params.id, request);
 
     return room;
   }
@@ -196,11 +183,7 @@ class RoomController {
    */
   //#endregion
   async destroy({ params }) {
-    const room = await Room.findOrFail(params.id);
-
-    room.IsActived = false;
-
-    await room.save();
+    await Room.Delete(params.id);
   }
 }
 
