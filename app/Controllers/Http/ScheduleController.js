@@ -4,7 +4,7 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
-const Schedule = use("App/Models/Schedule");
+const Schedule = use("App/Business/Http/ScheduleBusiness");
 
 /**
  * Resourceful controller for interacting with schedules
@@ -32,7 +32,7 @@ class ScheduleController {
    */
   //#endregion
   async index() {
-    const schedules = await Schedule.query().where("IsActived", true).fetch();
+    const schedules = await Schedule.GetAll();
 
     return schedules;
   }
@@ -70,8 +70,7 @@ class ScheduleController {
    */
   //#endregion
   async store({ request }) {
-    const data = request.only(["Description", "IsActived"]);
-    const schedule = await Schedule.create(data);
+    const schedule = await Schedule.Create(request);
 
     return schedule;
   }
@@ -103,7 +102,7 @@ class ScheduleController {
    */
   //#endregion
   async show({ params }) {
-    const schedule = await Schedule.findOrFail(params.id);
+    const schedule = await Schedule.GetById(params.id);
 
     return schedule;
   }
@@ -145,11 +144,7 @@ class ScheduleController {
    */
   //#endregion
   async update({ params, request }) {
-    const schedule = await Schedule.findOrFail(params.id);
-    const data = request.only(["Description", "IsActived"]);
-
-    schedule.merge(data);
-    await schedule.save();
+    const schedule = await Schedule.Update(params.id, request);
 
     return schedule;
   }
@@ -177,11 +172,7 @@ class ScheduleController {
    */
   //#endregion
   async destroy({ params }) {
-    const schedule = await Schedule.findOrFail(params.id);
-
-    schedule.IsActived = false;
-
-    await schedule.save();
+    await Schedule.Delete(params.id);
   }
 }
 
