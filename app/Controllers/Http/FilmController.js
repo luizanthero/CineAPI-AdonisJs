@@ -4,7 +4,7 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
-const Film = use("App/Models/Film");
+const Film = use("App/Business/Http/FilmBusiness");
 
 /**
  * Resourceful controller for interacting with films
@@ -33,7 +33,7 @@ class FilmController {
    */
   //#endregion
   async index() {
-    const films = await Film.query().where("IsActived", true).fetch();
+    const films = await Film.GetAll();
 
     return films;
   }
@@ -73,8 +73,7 @@ class FilmController {
    */
   //#endregion
   async store({ request }) {
-    const data = request.only(["Name", "ApiCode", "IsActived"]);
-    const film = await Film.create(data);
+    const film = await Film.Create(request);
 
     return film;
   }
@@ -107,7 +106,7 @@ class FilmController {
    */
   //#endregion
   async show({ params }) {
-    const film = await Film.findOrFail(params.id);
+    const film = await Film.GetById(params.id);
 
     return film;
   }
@@ -151,11 +150,7 @@ class FilmController {
    */
   //#endregion
   async update({ params, request }) {
-    const film = await Film.findOrFail(params.id);
-    const data = request.only(["Name", "ApiCode", "IsActived"]);
-
-    film.merge(data);
-    await film.save();
+    const film = await Film.Update(params.id, request);
 
     return film;
   }
@@ -183,11 +178,7 @@ class FilmController {
    */
   //#endregion
   async destroy({ params }) {
-    const film = await Film.findOrFail(params.id);
-
-    film.IsActived = false;
-
-    await film.save();
+    await Film.Delete(params.id);
   }
 }
 
