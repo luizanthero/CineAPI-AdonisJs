@@ -69,8 +69,8 @@ class FilmController {
    *        description: Internal Error
    */
   //#endregion
-  async indexPagination({ page, limitPage }) {
-    const films = await Film.GetAllPagination(page, limitPage);
+  async indexPagination({ params }) {
+    const films = await Film.GetAllPagination(params.page, params.limitPage);
 
     return films;
   }
