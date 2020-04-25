@@ -38,6 +38,43 @@ class FilmController {
     return films;
   }
 
+  //#region [Swagger: Method GET]
+  /**
+   * @swagger
+   * /films/{page}/{limitPage}:
+   *  get:
+   *    tags:
+   *      - Film
+   *    summary: Lists all films with pagination
+   *    produces:
+   *      - application/json
+   *    parameters:
+   *      - name: page
+   *        in: path
+   *        required: true
+   *        type: integer
+   *      - name: limitPage
+   *        in: path
+   *        required: true
+   *        type: integer
+   *    responses:
+   *      200:
+   *        description: Return all films
+   *        example:
+   *          id: 1
+   *          Name: "Wonder Woman"
+   *          ApiCode: "tt0451279"
+   *          IsActived: true
+   *      500:
+   *        description: Internal Error
+   */
+  //#endregion
+  async indexPagination({ page, limitPage }) {
+    const films = await Film.GetAllPagination(page, limitPage);
+
+    return films;
+  }
+
   //#region [Swagger: Method POST]
   /**
    * @swagger

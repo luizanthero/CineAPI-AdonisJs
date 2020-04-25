@@ -9,6 +9,14 @@ class FilmBusiness {
     return films;
   }
 
+  static async GetAllPagination(page, limitPage) {
+    const films = await Film.query()
+      .where("IsActived", true)
+      .paginate(page, limitPage);
+
+    return films;
+  }
+
   static async Create(request) {
     const data = request.only(["Name", "ApiCode", "IsActived"]);
     const film = await Film.create(data);
