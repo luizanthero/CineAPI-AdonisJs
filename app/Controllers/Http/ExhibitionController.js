@@ -4,7 +4,7 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
-const Exhibition = use("App/Models/Exhibition");
+const Exhibition = use("App/Business/Http/ExhibitionBusiness");
 
 /**
  * Resourceful controller for interacting with exhibitions
@@ -33,13 +33,7 @@ class ExhibitionController {
    */
   //#endregion
   async index() {
-    const exhibition = await Exhibition.query()
-      .with("film")
-      .with("room")
-      .with("roomtype")
-      .with("screen")
-      .with("schedule")
-      .fetch();
+    const exhibition = await Exhibition.GetAll();
 
     return exhibition;
   }
@@ -80,8 +74,7 @@ class ExhibitionController {
    */
   //#endregion
   async store({ request }) {
-    const data = request.only(["FilmId", "RoomId", "ScheduleId"]);
-    const exhibition = Exhibition.create(data);
+    const exhibition = Exhibition.Create(request);
 
     return exhibition;
   }
@@ -114,14 +107,7 @@ class ExhibitionController {
    */
   //#endregion
   async show({ params }) {
-    const exhibition = await Exhibition.query()
-      .with("film")
-      .with("room")
-      .with("roomtype")
-      .with("screen")
-      .with("schedule")
-      .where("id", params.id)
-      .fetch();
+    const exhibition = await Exhibition.GetById(params.id);
 
     return exhibition;
   }
@@ -166,11 +152,7 @@ class ExhibitionController {
    */
   //#endregion
   async update({ params, request }) {
-    const exhibition = await Exhibition.findOrFail(params.id);
-    const data = request.only(["FilmId", "RoomId", "ScheduleId"]);
-
-    exhibition.merge(data);
-    await exhibition.save();
+    const exhibition = await Exhibition.Update(params.id, request);
 
     return exhibition;
   }
@@ -198,11 +180,7 @@ class ExhibitionController {
    */
   //#endregion
   async destroy({ params }) {
-    const exhibition = await Exhibition.findOrFail(params.id);
-
-    exhibition.IsActived = false;
-
-    await exhibition.save();
+    await Exhibition.Delete(params.id);
   }
 }
 
