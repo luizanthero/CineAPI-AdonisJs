@@ -51,20 +51,25 @@ class FilmController {
    *    parameters:
    *      - name: page
    *        in: path
-   *        required: true
+   *        required: false
    *        type: integer
    *      - name: limitPage
    *        in: path
-   *        required: true
+   *        required: false
    *        type: integer
    *    responses:
    *      200:
    *        description: Return all films
    *        example:
-   *          id: 1
-   *          Name: "Wonder Woman"
-   *          ApiCode: "tt0451279"
-   *          IsActived: true
+   *          total: 1
+   *          perPage: 20
+   *          page: 1
+   *          lastPage: 1
+   *          data:
+   *            id: 1
+   *            Name: "Wonder Woman"
+   *            ApiCode: "tt0451279"
+   *            IsActived: true
    *      500:
    *        description: Internal Error
    */
