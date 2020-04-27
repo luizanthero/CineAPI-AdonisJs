@@ -30,6 +30,14 @@ class FilmBusiness {
     return film;
   }
 
+  static async GetByApiCode(apiCode) {
+    const film = await Film.query().where("ApiCode", apiCode).fetch();
+
+    if (Array.isArray(film.rows) && film.rows.length) return true;
+
+    return false;
+  }
+
   static async Update(id, request) {
     const film = await Film.findOrFail(id);
     const data = request.only(["Name", "ApiCode", "IsActived"]);

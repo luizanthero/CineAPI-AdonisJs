@@ -41,7 +41,7 @@ class FilmController {
   //#region [Swagger: Method GET]
   /**
    * @swagger
-   * /films/{page}/{limitPage}:
+   * /films/pagination/{page}/{limitPage}:
    *  get:
    *    tags:
    *      - Film
@@ -151,6 +151,36 @@ class FilmController {
     const film = await Film.GetById(params.id);
 
     return film;
+  }
+
+  //#region [Swagger: Method GET]
+  /**
+   * @swagger
+   * /films/apicode/{apiCode}:
+   *  get:
+   *    tags:
+   *      - Film
+   *    summary: Get a film by ApiCode
+   *    produces:
+   *      - application/json
+   *    parameters:
+   *      - name: apiCode
+   *        in: path
+   *        required: true
+   *        type: string
+   *    responses:
+   *      200:
+   *        description: Return a film
+   *        example:
+   *          result: true
+   *      500:
+   *        description: Internal Error
+   */
+  //#endregion
+  async showByApiCode({ params }) {
+    const result = await Film.GetByApiCode(params.apiCode);
+
+    return result;
   }
 
   //#region [Swagger: Method PUT]
