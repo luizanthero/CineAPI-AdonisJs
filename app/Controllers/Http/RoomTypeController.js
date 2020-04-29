@@ -37,6 +37,50 @@ class RoomTypeController {
     return roomtypes;
   }
 
+  //#region [Swagger: Method GET]
+  /**
+   * @swagger
+   * /roomtypes/pagination/{page}/{limitPage}:
+   *  get:
+   *    tags:
+   *      - Room Type
+   *    summary: Lists all room types with pagination
+   *    produces:
+   *      - application/json
+   *    parameters:
+   *      - name: page
+   *        in: path
+   *        required: false
+   *        type: integer
+   *      - name: limitPage
+   *        in: path
+   *        required: false
+   *        type: integer
+   *    responses:
+   *      200:
+   *        description: Return all room types
+   *        example:
+   *          total: 1
+   *          perPage: 20
+   *          page: 1
+   *          lastPage: 1
+   *          data:
+   *            id: 1
+   *            Description: "XD"
+   *            IsActived: true
+   *      500:
+   *        description: Internal Error
+   */
+  //#endregion
+  async indexPagination({ params }) {
+    const roomtypes = await RoomType.GetAllPagination(
+      params.page,
+      params.limitPage
+    );
+
+    return roomtypes;
+  }
+
   //#region [Swagger: Method POST]
   /**
    * @swagger

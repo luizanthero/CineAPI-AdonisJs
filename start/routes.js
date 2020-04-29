@@ -20,6 +20,10 @@ Route.group(() => {
   Route.resource("/screens", "ScreenController").apiOnly();
 
   Route.resource("/roomtypes", "RoomTypeController").apiOnly();
+  Route.get(
+    "/roomtypes/pagination/:page/:limitPage",
+    "RoomTypeController.indexPagination"
+  );
 
   Route.resource("/rooms", "RoomController").apiOnly();
   Route.get(

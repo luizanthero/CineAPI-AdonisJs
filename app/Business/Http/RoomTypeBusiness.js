@@ -9,6 +9,14 @@ class RoomTypeBusiness {
     return roomtypes;
   }
 
+  static async GetAllPagination(page, limitPage) {
+    const roomtypes = await RoomType.query()
+      .where("IsActived", true)
+      .paginate(page, limitPage);
+
+    return roomtypes;
+  }
+
   static async Create(request) {
     const data = request.only(["Description", "IsActived"]);
     const roomtype = await RoomType.create(data);
