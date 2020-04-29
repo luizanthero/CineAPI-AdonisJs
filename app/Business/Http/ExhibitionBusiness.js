@@ -4,7 +4,7 @@ const Exhibition = use("App/Models/Exhibition");
 
 class ExhibitionBusiness {
   static async GetAll() {
-    const exhibition = await Exhibition.query()
+    const exhibitions = await Exhibition.query()
       .with("film")
       .with("room")
       .with("roomtype")
@@ -12,11 +12,11 @@ class ExhibitionBusiness {
       .with("schedule")
       .fetch();
 
-    return exhibition;
+    return exhibitions;
   }
 
   static async GetAllPagination(page, limitPage) {
-    const exhibition = await Exhibition.query()
+    const exhibitions = await Exhibition.query()
       .with("film")
       .with("room")
       .with("roomtype")
@@ -24,7 +24,7 @@ class ExhibitionBusiness {
       .with("schedule")
       .paginate(page, limitPage);
 
-    return exhibition;
+    return exhibitions;
   }
 
   static async Create(request) {

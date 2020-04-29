@@ -38,7 +38,7 @@ Route.group(() => {
 
   Route.resource("/exhibitions", "ExhibitionController").apiOnly();
   Route.get(
-    "/exhibition/pagination/:page/:limitPage",
+    "/exhibitions/pagination/:page/:limitPage",
     "ExhibitionController.indexPagination"
   );
 });

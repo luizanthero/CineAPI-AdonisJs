@@ -41,7 +41,7 @@ class ExhibitionController {
   //#region [Swagger: Method GET]
   /**
    * @swagger
-   * /exhibition/pagination/{page}/{limitPage}:
+   * /exhibitions/pagination/{page}/{limitPage}:
    *  get:
    *    tags:
    *      - Exhibition
@@ -75,12 +75,12 @@ class ExhibitionController {
    */
   //#endregion
   async indexPagination({ params }) {
-    const exhibition = await Exhibition.GetAllPagination(
+    const exhibitions = await Exhibition.GetAllPagination(
       params.page,
       params.limitPage
     );
 
-    return exhibition;
+    return exhibitions;
   }
 
   //#region [Swagger: Method POST]
