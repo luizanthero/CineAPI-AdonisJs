@@ -18,16 +18,25 @@ const Route = use("Route");
 
 Route.group(() => {
   Route.resource("/screens", "ScreenController").apiOnly();
+
   Route.resource("/roomtypes", "RoomTypeController").apiOnly();
+
   Route.resource("/rooms", "RoomController").apiOnly();
+
   Route.resource("/films", "FilmController").apiOnly();
   Route.get(
     "/films/pagination/:page/:limitPage",
     "FilmController.indexPagination"
   );
   Route.get("/films/apiCode/:apiCode", "FilmController.showByApiCode");
+
   Route.resource("/schedules", "ScheduleController").apiOnly();
+
   Route.resource("/exhibitions", "ExhibitionController").apiOnly();
+  Route.get(
+    "/exhibition/pagination/:page/:limitPage",
+    "ExhibitionController.indexPagination"
+  );
 });
 
 Route.get("/", () => {

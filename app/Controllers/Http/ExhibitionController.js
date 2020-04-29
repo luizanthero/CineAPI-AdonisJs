@@ -38,6 +38,51 @@ class ExhibitionController {
     return exhibition;
   }
 
+  //#region [Swagger: Method GET]
+  /**
+   * @swagger
+   * /exhibition/pagination/{page}/{limitPage}:
+   *  get:
+   *    tags:
+   *      - Exhibition
+   *    summary: Lists all exhibition with pagination
+   *    produces:
+   *      - application/json
+   *    parameters:
+   *      - name: page
+   *        in: path
+   *        required: false
+   *        type: integer
+   *      - name: limitPage
+   *        in: path
+   *        required: false
+   *        type: integer
+   *    responses:
+   *      200:
+   *        description: Return all exhibition
+   *        example:
+   *          total: 1
+   *          perPage: 20
+   *          page: 1
+   *          lastPage: 1
+   *          data:
+   *            id: 1
+   *            FilmId: 1
+   *            RoomId: 1
+   *            ScheduleId: 1
+   *      500:
+   *        description: Internal Error
+   */
+  //#endregion
+  async indexPagination({ params }) {
+    const exhibition = await Exhibition.GetAllPagination(
+      params.page,
+      params.limitPage
+    );
+
+    return exhibition;
+  }
+
   //#region [Swagger: Method POST]
   /**
    * @swagger

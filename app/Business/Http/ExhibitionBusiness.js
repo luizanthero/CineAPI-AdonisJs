@@ -15,6 +15,18 @@ class ExhibitionBusiness {
     return exhibition;
   }
 
+  static async GetAllPagination(page, limitPage) {
+    const exhibition = await Exhibition.query()
+      .with("film")
+      .with("room")
+      .with("roomtype")
+      .with("screen")
+      .with("schedule")
+      .paginate(page, limitPage);
+
+    return exhibition;
+  }
+
   static async Create(request) {
     const data = request.only(["FilmId", "RoomId", "ScheduleId"]);
     const exhibition = Exhibition.create(data);
