@@ -39,6 +39,49 @@ class RoomController {
     return rooms;
   }
 
+  //#region [Swagger: Method GET]
+  /**
+   * @swagger
+   * /rooms/pagination/{page}/{limitPage}:
+   *  get:
+   *    tags:
+   *      - Room
+   *    summary: Lists all rooms with pagination
+   *    produces:
+   *      - application/json
+   *    parameters:
+   *      - name: page
+   *        in: path
+   *        required: false
+   *        type: integer
+   *      - name: limitPage
+   *        in: path
+   *        required: false
+   *        type: integer
+   *    responses:
+   *      200:
+   *        description: Return all rooms
+   *        example:
+   *          total: 1
+   *          perPage: 20
+   *          page: 1
+   *          lastPage: 1
+   *          data:
+   *            id: 1
+   *            RoomTypeId: 1
+   *            ScreenId: 1
+   *            Name: "A01"
+   *            IsActivec: true
+   *      500:
+   *        description: Internal Error
+   */
+  //#endregion
+  async indexPagination({ params }) {
+    const rooms = await Room.GetAllPagination(params.page, params.limitPage);
+
+    return rooms;
+  }
+
   //#region [Swagger: Method POST]
   /**
    * @swagger

@@ -22,6 +22,10 @@ Route.group(() => {
   Route.resource("/roomtypes", "RoomTypeController").apiOnly();
 
   Route.resource("/rooms", "RoomController").apiOnly();
+  Route.get(
+    "/rooms/pagination/:page/:limitPage",
+    "RoomController.indexPagination"
+  );
 
   Route.resource("/films", "FilmController").apiOnly();
   Route.get(
