@@ -37,6 +37,50 @@ class ScreenController {
     return screens;
   }
 
+  //#region [Swagger: Method GET]
+  /**
+   * @swagger
+   * /screens/pagination/{page}/{limitPage}:
+   *  get:
+   *    tags:
+   *      - Screen
+   *    summary: Lists all screens with pagination
+   *    produces:
+   *      - application/json
+   *    parameters:
+   *      - name: page
+   *        in: path
+   *        required: false
+   *        type: integer
+   *      - name: limitPage
+   *        in: path
+   *        required: false
+   *        type: integer
+   *    responses:
+   *      200:
+   *        description: Return all screens
+   *        example:
+   *          total: 1
+   *          perPage: 20
+   *          page: 1
+   *          lastPage: 1
+   *          data:
+   *            id: 1
+   *            Size: "Extreme"
+   *            IsActived: true
+   *      500:
+   *        description: Internal Error
+   */
+  //#endregion
+  async indexPagination({ params }) {
+    const screens = await Screen.GetAllPagination(
+      params.page,
+      params.limitPage
+    );
+
+    return screens;
+  }
+
   //#region [Swagger: Method POST]
   /**
    * @swagger

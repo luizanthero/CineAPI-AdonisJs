@@ -9,6 +9,14 @@ class ScreenBusiness {
     return screens;
   }
 
+  static async GetAllPagination(page, limitPage) {
+    const screens = await Screen.query()
+      .where("IsActived", true)
+      .paginate(page, limitPage);
+
+    return screens;
+  }
+
   static async Create(request) {
     const data = request.only(["Size", "IsActived"]);
     const screen = await Screen.create(data);

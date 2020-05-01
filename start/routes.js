@@ -18,6 +18,10 @@ const Route = use("Route");
 
 Route.group(() => {
   Route.resource("/screens", "ScreenController").apiOnly();
+  Route.get(
+    "/screens/pagination/:page/:limitPage",
+    "ScreenController.indexPagination"
+  );
 
   Route.resource("/roomtypes", "RoomTypeController").apiOnly();
   Route.get(
