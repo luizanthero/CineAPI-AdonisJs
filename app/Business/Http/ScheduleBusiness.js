@@ -9,6 +9,14 @@ class ScheduleBusiness {
     return schedules;
   }
 
+  static async GetAllPagination(page, limitPage) {
+    const schedules = await Schedule.query()
+      .where("IsActived", true)
+      .paginate(page, limitPage);
+
+    return schedules;
+  }
+
   static async Create(request) {
     const data = request.only(["Description", "IsActived"]);
     const schedule = await Schedule.create(data);

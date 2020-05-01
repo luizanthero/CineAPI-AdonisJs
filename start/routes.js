@@ -39,6 +39,10 @@ Route.group(() => {
   Route.get("/films/apiCode/:apiCode", "FilmController.showByApiCode");
 
   Route.resource("/schedules", "ScheduleController").apiOnly();
+  Route.get(
+    "/schedules/pagination/:page/:limitPage",
+    "ScheduleController.indexPagination"
+  );
 
   Route.resource("/exhibitions", "ExhibitionController").apiOnly();
   Route.get(

@@ -37,6 +37,50 @@ class ScheduleController {
     return schedules;
   }
 
+  //#region [Swagger: Method GET]
+  /**
+   * @swagger
+   * /schedules/pagination/{page}/{limitPage}:
+   *  get:
+   *    tags:
+   *      - Schedule
+   *    summary: Lists all schedules with pagination
+   *    produces:
+   *      - application/json
+   *    parameters:
+   *      - name: page
+   *        in: path
+   *        required: false
+   *        type: integer
+   *      - name: limitPage
+   *        in: path
+   *        required: false
+   *        type: integer
+   *    responses:
+   *      200:
+   *        description: Return all schedules
+   *        example:
+   *          total: 1
+   *          perPage: 20
+   *          page: 1
+   *          lastPage: 1
+   *          data:
+   *            id: 1
+   *            Description: "Noite"
+   *            IsActived: true
+   *      500:
+   *        description: Internal Error
+   */
+  //#endregion
+  async indexPagination({ params }) {
+    const schedules = await Schedule.GetAllPagination(
+      params.page,
+      params.limitPage
+    );
+
+    return schedules;
+  }
+
   //#region [Swagger: Method POST]
   /**
    * @swagger
