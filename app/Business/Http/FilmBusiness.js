@@ -4,7 +4,10 @@ const Film = use("App/Models/Film");
 
 class FilmBusiness {
   static async GetAll() {
-    const films = await Film.query().where("IsActived", true).fetch();
+    const films = await Film.query()
+      .where("IsActived", true)
+      .orderBy("Name")
+      .fetch();
 
     return films;
   }
@@ -12,6 +15,7 @@ class FilmBusiness {
   static async GetAllPagination(page, limitPage) {
     const films = await Film.query()
       .where("IsActived", true)
+      .orderBy("Name")
       .paginate(page, limitPage);
 
     return films;
