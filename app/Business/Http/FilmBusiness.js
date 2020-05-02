@@ -1,6 +1,7 @@
 "use strict";
 
 const Film = use("App/Models/Film");
+const Exhibition = use("App/Business/Http/ExhibitionBusiness");
 
 class FilmBusiness {
   static async GetAll() {
@@ -57,7 +58,9 @@ class FilmBusiness {
 
     film.IsActived = false;
 
-    await film.save();
+    if (await film.save()) {
+      await Exhibition.DeleteByFilm(id);
+    }
   }
 }
 

@@ -62,6 +62,24 @@ class ExhibitionBusiness {
 
     await exhibition.delete();
   }
+
+  static async DeleteByFilm(filmId) {
+    const exhibition = await Exhibition.findByOrFail("FilmId", filmId);
+
+    await exhibition.delete();
+  }
+
+  static async DeleteByRoom(roomId) {
+    const exhibition = await Exhibition.findByOrFail("RoomId", roomId);
+
+    await exhibition.delete();
+  }
+
+  static async DeleteBySchedule(scheduleId) {
+    const exhibition = await Exhibition.findByOrFail("ScheduleId", scheduleId);
+
+    await exhibition.delete();
+  }
 }
 
 module.exports = ExhibitionBusiness;
