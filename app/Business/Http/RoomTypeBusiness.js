@@ -1,6 +1,7 @@
 "use strict";
 
 const RoomType = use("App/Models/RoomType");
+const Room = use("App/Business/Http/RoomBusiness");
 
 class RoomTypeBusiness {
   static async GetAll() {
@@ -45,7 +46,9 @@ class RoomTypeBusiness {
 
     roomtype.IsActived = false;
 
-    await roomtype.save();
+    if (await roomtype.save()) {
+      await Room.DeleteByRoomType(id);
+    }
   }
 }
 

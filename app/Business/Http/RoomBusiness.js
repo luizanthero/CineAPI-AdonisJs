@@ -60,6 +60,26 @@ class RoomBusiness {
       await Exhibition.DeleteByRoom(id);
     }
   }
+
+  static async DeleteByRoomType(roomTypeId) {
+    const room = await Room.findByOrFail("RoomTypeId", roomTypeId);
+
+    room.IsActived = false;
+
+    if (await room.save()) {
+      await Exhibition.DeleteByRoom(room.id);
+    }
+  }
+
+  static async DeleteByScreen(screenId) {
+    const room = await Room.findByOrFail("ScreenId", screenId);
+
+    room.IsActived = false;
+
+    if (await room.save()) {
+      await Exhibition.DeleteByScreen(room.id);
+    }
+  }
 }
 
 module.exports = RoomBusiness;
