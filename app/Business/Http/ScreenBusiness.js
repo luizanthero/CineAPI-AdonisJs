@@ -1,6 +1,7 @@
 "use strict";
 
 const Screen = use("App/Models/Screen");
+const Room = use("App/Business/Http/RoomBusiness");
 
 class ScreenBusiness {
   static async GetAll() {
@@ -45,7 +46,9 @@ class ScreenBusiness {
 
     screen.IsActived = false;
 
-    await screen.save();
+    if (await screen.save()) {
+      await Room.DeleteByScreen(id);
+    }
   }
 }
 
