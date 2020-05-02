@@ -1,6 +1,7 @@
 "use strict";
 
 const Room = use("App/Models/Room");
+const Exhibition = use("App/Business/Http/ExbihitionBusiness");
 
 class RoomBusiness {
   static async GetAll() {
@@ -55,7 +56,9 @@ class RoomBusiness {
 
     room.IsActived = false;
 
-    await room.save();
+    if (await room.save()) {
+      await Exhibition.DeleteByRoom(id);
+    }
   }
 }
 
