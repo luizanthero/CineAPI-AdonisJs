@@ -1,6 +1,7 @@
 "use strict";
 
 const Schedule = use("App/Models/Schedule");
+const Exhibition = use("App/Business/Http/ExhibitionBusiness");
 
 class ScheduleBusiness {
   static async GetAll() {
@@ -45,7 +46,9 @@ class ScheduleBusiness {
 
     schedule.IsActived = false;
 
-    await schedule.save();
+    if (await schedule.save()) {
+      await Exhibition.DeleteBySchedule(id);
+    }
   }
 }
 
