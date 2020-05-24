@@ -53,6 +53,9 @@ Route.group(() => {
     "/exhibitions/pagination/:page/:limitPage",
     "ExhibitionController.indexPagination"
   );
+
+  Route.post("/users", "UserController.store");
+  Route.post("/users/authentication", "UserController.authentication");
 });
 
 Route.get("/", () => {

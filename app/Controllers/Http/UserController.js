@@ -4,7 +4,7 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
-const User = use("App/Business/UserBusiness");
+const User = use("App/Business/Http/UserBusiness");
 
 /**
  * Resourceful controller for interacting with users
