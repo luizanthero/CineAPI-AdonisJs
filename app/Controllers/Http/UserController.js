@@ -79,7 +79,7 @@ class UserController {
    *        example:
    *          type: "bearer"
    *          token: "string token"
-   *          refreshToken: null
+   *          refreshToken: "null"
    *      500:
    *        description: Internal Error
    */
