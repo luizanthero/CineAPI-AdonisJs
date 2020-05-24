@@ -28,6 +28,10 @@ const Model = use("Model");
  *          - Name
  */
 class Room extends Model {
+  static get table() {
+    return "Room";
+  }
+
   roomtype() {
     return this.belongsTo("App/Models/RoomType", "RoomTypeId", "id");
   }

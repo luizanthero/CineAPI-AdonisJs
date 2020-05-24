@@ -21,6 +21,10 @@ const Model = use("Model");
  *      required:
  *          - Description
  */
-class Schedule extends Model {}
+class Schedule extends Model {
+  static get table() {
+    return "Schedule";
+  }
+}
 
 module.exports = Schedule;

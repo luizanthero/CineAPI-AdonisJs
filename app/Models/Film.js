@@ -24,6 +24,10 @@ const Model = use("Model");
  *          - Name
  *          - ApiCode
  */
-class Film extends Model {}
+class Film extends Model {
+  static get table() {
+    return "Film";
+  }
+}
 
 module.exports = Film;

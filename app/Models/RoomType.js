@@ -21,6 +21,10 @@ const Model = use("Model");
  *      required:
  *          - Description
  */
-class RoomType extends Model {}
+class RoomType extends Model {
+  static get table() {
+    return "RoomType";
+  }
+}
 
 module.exports = RoomType;

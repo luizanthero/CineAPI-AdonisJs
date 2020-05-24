@@ -25,6 +25,10 @@ const Model = use("Model");
  *          - ScheduleId
  */
 class Exhibition extends Model {
+  static get table() {
+    return "Exhibition";
+  }
+
   film() {
     return this.belongsTo("App/Models/Film", "FilmId", "id");
   }

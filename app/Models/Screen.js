@@ -21,6 +21,10 @@ const Model = use("Model");
  *      required:
  *          - Size
  */
-class Screen extends Model {}
+class Screen extends Model {
+  static get table() {
+    return "Screen";
+  }
+}
 
 module.exports = Screen;
