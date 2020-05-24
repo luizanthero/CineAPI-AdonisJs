@@ -17,6 +17,8 @@ class FilmController {
    *  get:
    *    tags:
    *      - Film
+   *    security:
+   *      - bearerAuth: []
    *    summary: Lists all films
    *    produces:
    *      - application/json
@@ -45,6 +47,8 @@ class FilmController {
    *  get:
    *    tags:
    *      - Film
+   *    security:
+   *      - bearerAuth: []
    *    summary: Lists all films with pagination
    *    produces:
    *      - application/json
@@ -87,6 +91,8 @@ class FilmController {
    *  post:
    *    tags:
    *      - Film
+   *    security:
+   *      - bearerAuth: []
    *    summary: Create a film
    *    produces:
    *      - application/json
@@ -127,6 +133,8 @@ class FilmController {
    *  get:
    *    tags:
    *      - Film
+   *    security:
+   *      - bearerAuth: []
    *    summary: Get a film by Id
    *    produces:
    *      - application/json
@@ -160,6 +168,8 @@ class FilmController {
    *  get:
    *    tags:
    *      - Film
+   *    security:
+   *      - bearerAuth: []
    *    summary: Get a film by ApiCode
    *    produces:
    *      - application/json
@@ -190,6 +200,8 @@ class FilmController {
    *  put:
    *    tags:
    *      - Film
+   *    security:
+   *      - bearerAuth: []
    *    summary: Update a film by Id
    *    produces:
    *      - application/json
@@ -234,6 +246,8 @@ class FilmController {
    *  delete:
    *    tags:
    *      - Film
+   *    security:
+   *      - bearerAuth: []
    *    summary: Delete a film by Id
    *    produces:
    *      - application/json

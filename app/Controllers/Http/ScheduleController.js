@@ -17,6 +17,8 @@ class ScheduleController {
    *  get:
    *    tags:
    *      - Schedule
+   *    security:
+   *      - bearerAuth: []
    *    summary: Lists all schedules
    *    produces:
    *      -application/json
@@ -44,6 +46,8 @@ class ScheduleController {
    *  get:
    *    tags:
    *      - Schedule
+   *    security:
+   *      - bearerAuth: []
    *    summary: Lists all schedules with pagination
    *    produces:
    *      - application/json
@@ -88,6 +92,8 @@ class ScheduleController {
    *  post:
    *    tags:
    *      - Schedule
+   *    security:
+   *      - bearerAuth: []
    *    summary: Create a schedule
    *    produces:
    *      - application/json
@@ -126,6 +132,8 @@ class ScheduleController {
    *  get:
    *    tags:
    *      - Schedule
+   *    security:
+   *      - bearerAuth: []
    *    summary: Get a schedule by Id
    *    produces:
    *      - application/json
@@ -158,6 +166,8 @@ class ScheduleController {
    *  put:
    *    tags:
    *      - Schedule
+   *    security:
+   *      - bearerAuth: []
    *    summary: Update a schedule by Id
    *    produces:
    *      - application/json
@@ -200,6 +210,8 @@ class ScheduleController {
    *  delete:
    *    tags:
    *      - Schedule
+   *    security:
+   *      - bearerAuth: []
    *    summary: Delete a schedule by Id
    *    produces:
    *      - application/json

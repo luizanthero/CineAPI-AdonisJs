@@ -17,6 +17,8 @@ class ExhibitionController {
    *  get:
    *    tags:
    *      - Exhibition
+   *    security:
+   *      - bearerAuth: []
    *    summary: Lists all exhibitions
    *    produces:
    *      - application/json
@@ -45,6 +47,8 @@ class ExhibitionController {
    *  get:
    *    tags:
    *      - Exhibition
+   *    security:
+   *      - bearerAuth: []
    *    summary: Lists all exhibition with pagination
    *    produces:
    *      - application/json
@@ -90,6 +94,8 @@ class ExhibitionController {
    *  post:
    *    tags:
    *      - Exhibition
+   *    security:
+   *      - bearerAuth: []
    *    summary: Create an exhibition
    *    produces:
    *      - application/json
@@ -131,6 +137,8 @@ class ExhibitionController {
    *  get:
    *    tags:
    *      - Exhibition
+   *    security:
+   *      - bearerAuth: []
    *    summary: Get an exhibition by Id
    *    produces:
    *      - application/json
@@ -164,6 +172,8 @@ class ExhibitionController {
    *  put:
    *    tags:
    *      - Exhibition
+   *    security:
+   *      - bearerAuth: []
    *    summary: Update an screen by Id
    *    produces:
    *      - application/json
@@ -209,6 +219,8 @@ class ExhibitionController {
    *  delete:
    *    tags:
    *      - Exhibition
+   *    security:
+   *      - bearerAuth: []
    *    summary: Delete an exhibition by Id
    *    produces:
    *      - application/json

@@ -17,6 +17,8 @@ class RoomController {
    *  get:
    *    tags:
    *      - Room
+   *    security:
+   *      - bearerAuth: []
    *    summary: Lists all rooms
    *    produces:
    *      - application/json
@@ -46,6 +48,8 @@ class RoomController {
    *  get:
    *    tags:
    *      - Room
+   *    security:
+   *      - bearerAuth: []
    *    summary: Lists all rooms with pagination
    *    produces:
    *      - application/json
@@ -89,6 +93,8 @@ class RoomController {
    *  post:
    *    tags:
    *      - Room
+   *    security:
+   *      - bearerAuth: []
    *    summary: Create a room
    *    produces:
    *      - application/json
@@ -130,6 +136,8 @@ class RoomController {
    *  get:
    *    tags:
    *      - Room
+   *    security:
+   *      - bearerAuth: []
    *    summary: Get a room by Id
    *    produces:
    *      - application/json
@@ -164,6 +172,8 @@ class RoomController {
    *  put:
    *    tags:
    *      - Room
+   *    security:
+   *      - bearerAuth: []
    *    summary: Update a room by Id
    *    produces:
    *      - application/json
@@ -210,6 +220,8 @@ class RoomController {
    *  delete:
    *    tags:
    *      - Room
+   *    security:
+   *      - bearerAuth: []
    *    summary: Delete a room by Id
    *    produces:
    *      - application/json
