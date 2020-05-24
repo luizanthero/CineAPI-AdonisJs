@@ -17,8 +17,8 @@ class ScreenController {
    *   get:
    *      tags:
    *        - Screen
-   *    security:
-   *      - bearerAuth: []
+   *      security:
+   *        - bearerAuth: []
    *      summary: Lists all screens
    *      produces:
    *        - application/json
@@ -92,8 +92,8 @@ class ScreenController {
    *   post:
    *      tags:
    *        - Screen
-   *    security:
-   *      - bearerAuth: []
+   *      security:
+   *        - bearerAuth: []
    *      summary: Create a screen
    *      produces:
    *        - application/json
@@ -132,8 +132,8 @@ class ScreenController {
    *   get:
    *      tags:
    *        - Screen
-   *    security:
-   *      - bearerAuth: []
+   *      security:
+   *        - bearerAuth: []
    *      summary: Get a screen by Id
    *      produces:
    *        - application/json
@@ -166,8 +166,8 @@ class ScreenController {
    *   put:
    *      tags:
    *        - Screen
-   *    security:
-   *      - bearerAuth: []
+   *      security:
+   *        - bearerAuth: []
    *      summary: Update a screen by Id
    *      produces:
    *        - application/json
@@ -210,8 +210,8 @@ class ScreenController {
    *   delete:
    *      tags:
    *        - Screen
-   *    security:
-   *      - bearerAuth: []
+   *      security:
+   *        - bearerAuth: []
    *      summary: Delete a screen by Id
    *      produces:
    *        - application/json
