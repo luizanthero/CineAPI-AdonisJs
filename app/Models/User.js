@@ -6,6 +6,30 @@ const Model = use("Model");
 /** @type {import('@adonisjs/framework/src/Hash')} */
 const Hash = use("Hash");
 
+/**
+ *
+ * @swagger
+ *
+ * definitions:
+ *  User:
+ *      type: object
+ *      properties:
+ *          id:
+ *              type: int
+ *          Username:
+ *              type: string
+ *          Email:
+ *              type: string
+ *          Password:
+ *              type: string
+ *          IsActived:
+ *              type: boolean
+ *              default: true
+ *      required:
+ *          - Username
+ *          - Email
+ *          - IsActived
+ */
 class User extends Model {
   static get table() {
     return "User";
