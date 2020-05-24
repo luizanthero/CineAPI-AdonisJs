@@ -17,42 +17,51 @@
 const Route = use("Route");
 
 Route.group(() => {
-  Route.resource("/screens", "ScreenController").apiOnly();
+  Route.resource("/screens", "ScreenController").apiOnly().middleware(["auth"]);
   Route.get(
     "/screens/pagination/:page/:limitPage",
     "ScreenController.indexPagination"
-  );
+  ).middleware(["auth"]);
 
-  Route.resource("/roomtypes", "RoomTypeController").apiOnly();
+  Route.resource("/roomtypes", "RoomTypeController")
+    .apiOnly()
+    .middleware(["auth"]);
   Route.get(
     "/roomtypes/pagination/:page/:limitPage",
     "RoomTypeController.indexPagination"
-  );
+  ).middleware(["auth"]);
 
-  Route.resource("/rooms", "RoomController").apiOnly();
+  Route.resource("/rooms", "RoomController").apiOnly().middleware(["auth"]);
   Route.get(
     "/rooms/pagination/:page/:limitPage",
     "RoomController.indexPagination"
-  );
+  ).middleware(["auth"]);
 
-  Route.resource("/films", "FilmController").apiOnly();
+  Route.resource("/films", "FilmController").apiOnly().middleware(["auth"]);
   Route.get(
     "/films/pagination/:page/:limitPage",
     "FilmController.indexPagination"
-  );
-  Route.get("/films/apiCode/:apiCode", "FilmController.showByApiCode");
+  ).middleware(["auth"]);
+  Route.get(
+    "/films/apiCode/:apiCode",
+    "FilmController.showByApiCode"
+  ).middleware(["auth"]);
 
-  Route.resource("/schedules", "ScheduleController").apiOnly();
+  Route.resource("/schedules", "ScheduleController")
+    .apiOnly()
+    .middleware(["auth"]);
   Route.get(
     "/schedules/pagination/:page/:limitPage",
     "ScheduleController.indexPagination"
-  );
+  ).middleware(["auth"]);
 
-  Route.resource("/exhibitions", "ExhibitionController").apiOnly();
+  Route.resource("/exhibitions", "ExhibitionController")
+    .apiOnly()
+    .middleware(["auth"]);
   Route.get(
     "/exhibitions/pagination/:page/:limitPage",
     "ExhibitionController.indexPagination"
-  );
+  ).middleware(["auth"]);
 
   Route.post("/users", "UserController.store");
   Route.post("/users/authentication", "UserController.authentication");
