@@ -19,7 +19,7 @@ module.exports = {
         version: "1.0.0",
       },
 
-      basePath: "/",
+      basePath: "/api",
 
       // Example security definitions.
       securityDefinitions: {

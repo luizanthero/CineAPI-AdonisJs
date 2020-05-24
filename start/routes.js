@@ -65,7 +65,7 @@ Route.group(() => {
 
   Route.post("/users", "UserController.store");
   Route.post("/users/authentication", "UserController.authentication");
-});
+}).prefix("api");
 
 Route.get("/", () => {
   return { greeting: "Hello world in JSON" };
