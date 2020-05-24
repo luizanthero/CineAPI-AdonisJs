@@ -40,7 +40,7 @@ class UserController {
    *          id: 1
    *          Username: "teste"
    *          Email: "teste@teste.com"
-   *          Password: "teste"
+   *          Password: "string hash"
    *      500:
    *        description: Internal Error
    */
@@ -77,10 +77,9 @@ class UserController {
    *      200:
    *        description: Return an user token
    *        example:
-   *          id: 1
-   *          FilmId: 1
-   *          RoomId: 1
-   *          ScheduleId: 1
+   *          type: "bearer"
+   *          token: "string token"
+   *          refreshToken: null
    *      500:
    *        description: Internal Error
    */
