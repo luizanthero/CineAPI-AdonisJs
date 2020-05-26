@@ -63,6 +63,10 @@ Route.group(() => {
     "ExhibitionController.indexPagination"
   ).middleware(["auth"]);
 
+  Route.resource("/historicTypes", "HistoricTypeController")
+    .apiOnly()
+    .middleware(["auth"]);
+
   Route.post("/users", "UserController.store");
   Route.post("/users/authentication", "UserController.authentication");
 }).prefix("api");
