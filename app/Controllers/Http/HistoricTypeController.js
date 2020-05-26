@@ -7,7 +7,7 @@
 const HistoricType = use("App/Business/HistoricTypeBusiness");
 
 /**
- * Resourceful controller for interacting with films
+ * Resourceful controller for interacting with historic type
  */
 class HistoricTypeController {
   //#region [Suagger: Method GET]
