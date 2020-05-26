@@ -4,7 +4,7 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
-const HistoricType = use("App/Business/Http/HistoricTypeBusiness");
+const HistoricType = use("App/Business/HistoricTypeBusiness");
 
 /**
  * Resourceful controller for interacting with films
