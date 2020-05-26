@@ -121,6 +121,6 @@ Route.group(() => {
   //#endregion
 }).prefix("api");
 
-Route.get("/", () => {
-  return { greeting: "Hello world in JSON" };
+Route.get("/", ({ response }) => {
+  return response.redirect("/docs");
 });
