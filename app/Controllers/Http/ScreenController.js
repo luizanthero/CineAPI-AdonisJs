@@ -4,7 +4,7 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
-const Screen = use("App/Business/Http/ScreenBusiness");
+const Screen = use("App/Business/ScreenBusiness");
 
 /**
  * Resourceful controller for interacting with screens

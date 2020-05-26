@@ -1,7 +1,7 @@
 "use strict";
 
 const Schedule = use("App/Models/Schedule");
-const Exhibition = use("App/Business/Http/ExhibitionBusiness");
+const Exhibition = use("App/Business/ExhibitionBusiness");
 
 class ScheduleBusiness {
   static async GetAll() {

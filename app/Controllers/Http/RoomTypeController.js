@@ -4,7 +4,7 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
-const RoomType = use("App/Business/Http/RoomTypeBusiness");
+const RoomType = use("App/Business/RoomTypeBusiness");
 
 /**
  * Resourceful controller for interacting with roomtypes

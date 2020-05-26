@@ -4,7 +4,7 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
-const Schedule = use("App/Business/Http/ScheduleBusiness");
+const Schedule = use("App/Business/ScheduleBusiness");
 
 /**
  * Resourceful controller for interacting with schedules

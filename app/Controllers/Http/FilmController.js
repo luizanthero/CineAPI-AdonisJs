@@ -4,7 +4,7 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
-const Film = use("App/Business/Http/FilmBusiness");
+const Film = use("App/Business/FilmBusiness");
 
 /**
  * Resourceful controller for interacting with films

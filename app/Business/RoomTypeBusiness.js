@@ -1,7 +1,7 @@
 "use strict";
 
 const RoomType = use("App/Models/RoomType");
-const Room = use("App/Business/Http/RoomBusiness");
+const Room = use("App/Business/RoomBusiness");
 
 class RoomTypeBusiness {
   static async GetAll() {
