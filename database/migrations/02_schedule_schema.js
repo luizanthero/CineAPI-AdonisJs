@@ -8,7 +8,7 @@ class ScheduleSchema extends Schema {
     this.create("Schedule", (table) => {
       table.increments();
       table.string("Description").notNullable().unique();
-      table.boolean("ÍsActived").notNullable().defaultTo(true);
+      table.boolean("IsActived").notNullable().defaultTo(true);
       table.timestamps();
     });
   }
